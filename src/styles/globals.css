@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .connectWalletBtn {
+    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer;
+  }
+  .ebayBtn {
+    @apply bg-blue-600 text-white px-5 md:px-7 lg:px-10 py-2 border-2 border-blue-600;
+  }
+  .secondary {
+    @apply bg-white text-blue-600 hover:bg-blue-600/50 hover:text-white;
+  }
+  .responsiveLinks {
+    @apply hidden md:inline-flex cursor-pointer;
+  }
+
+  .link {
+    @apply hover:text-blue-500 hover:underline transition-colors duration-300 ease-in-out;
+  }
+
+  .flexCenter {
+    @apply flex items-center;
+  }
+
+  .card {
+    @apply border border-gray-200 rounded-md p-5 bg-gray-50 cursor-pointer hover:bg-gray-100;
+  }
+}
