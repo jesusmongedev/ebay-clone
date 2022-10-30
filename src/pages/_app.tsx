@@ -3,13 +3,14 @@ import { ThirdwebProvider } from "@thirdweb-dev/react";
 
 import network from "~/utils/network.utils";
 import "~/styles/globals.css";
+import Layout from "~/components/UI/Layout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThirdwebProvider desiredChainId={network}>
-      <div className='max-w-6xl mx-auto p-2'>
+      <Layout>
         <Component {...pageProps} />
-      </div>
+      </Layout>
     </ThirdwebProvider>
   );
 }

@@ -1,4 +1,5 @@
 import { useActiveListings, useContract } from "@thirdweb-dev/react";
+import { Suspense } from "react";
 import Header from "~/components/Header";
 import ListingCard from "~/components/ListingCard";
 import SkeletonCard from "~/components/SkeletonCard";
@@ -16,25 +17,21 @@ const Home = () => {
   const skeletonCards = Array(4).fill(0);
 
   return (
-    <div>
-      <Header />
-      {/* Grid of listings */}
-      <main className='p-6'>
-        {loadingListings ? (
-          <ListingsGridContainer>
-            {skeletonCards.map((_, i) => (
-              <SkeletonCard key={i} />
-            ))}
-          </ListingsGridContainer>
-        ) : (
-          <ListingsGridContainer>
-            {listings?.map((listing) => (
-              <ListingCard key={listing.id} listing={listing} />
-            ))}
-          </ListingsGridContainer>
-        )}
-      </main>
-    </div>
+    <main className='p-6'>
+      {loadingListings ? (
+        <ListingsGridContainer>
+          {skeletonCards.map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </ListingsGridContainer>
+      ) : (
+        <ListingsGridContainer>
+          {listings?.map((listing) => (
+            <ListingCard key={listing.id} listing={listing} />
+          ))}
+        </ListingsGridContainer>
+      )}
+    </main>
   );
 };
 

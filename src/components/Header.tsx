@@ -31,20 +31,20 @@ const Header = (props: Props) => {
           <button onClick={btnAction} className='connectWalletBtn'>
             {btnTitle}
           </button>
-          <p className='responsiveLinks hover:link'>Daily Deals</p>
-          <p className='responsiveLinks hover:link'>Help & Contact</p>
+          <p className='responsiveLinks link'>Daily Deals</p>
+          <p className='responsiveLinks link'>Help & Contact</p>
         </div>
 
         {/* Right Side */}
         <div className='flexCenter text-sm space-x-4'>
-          <p className='responsiveLinks hover:link'>Ship to</p>
-          <p className='responsiveLinks hover:link'>Sell</p>
-          <p className='responsiveLinks hover:link'>Watchlist</p>
-          <Link href='/addItem' className='flexCenter hover:link'>
+          <p className='responsiveLinks link'>Ship to</p>
+          <p className='responsiveLinks link'>Sell</p>
+          <p className='responsiveLinks link'>Watchlist</p>
+          <Link href='/addItem' className='flexCenter link'>
             Add to inventory <ChevronDownIcon className='h-4' />{" "}
           </Link>
-          <BellIcon className='h-6' />
-          <ShoppingCartIcon className='h-6' />
+          <BellIcon className='h-6 link cursor-pointer' />
+          <ShoppingCartIcon className='h-6 link cursor-pointer' />
         </div>
       </nav>
 
@@ -78,7 +78,9 @@ const Header = (props: Props) => {
           />
         </div>
         <button className='hidden sm:inline-flex ebayBtn'>Search</button>
-        <button className='ebayBtn secondary'>List Item</button>
+        <button className='hidden sm:inline-flex ebayBtn secondary'>
+          List Item
+        </button>
       </section>
       <hr />
 
