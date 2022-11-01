@@ -1,14 +1,22 @@
-import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  useAddress,
+  useDisconnect,
+  useMetamask,
+} from "@thirdweb-dev/react";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 import {
   BellIcon,
   ShoppingCartIcon,
   ChevronDownIcon,
   MagnifyingGlassIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import ModalBackground from "./UI/Modal/ModalBackground";
+import MintNftModal from "./UI/Modal/MintNftModal";
 
 type Props = {};
 
@@ -17,20 +25,22 @@ const Header = (props: Props) => {
   const disconnect = useDisconnect();
   const address = useAddress();
 
+  const [openModal, setOpenModal] = useState(false);
+
   const btnTitle = address
     ? `Hi ${address.slice(0, 5)} ... ${address.slice(-5)}`
     : "Connect your wallet";
   const btnAction = address ? disconnect : connectWithMetamask;
+
+  const toggleModal = () => setOpenModal((prevState) => !prevState);
 
   return (
     <>
       {/* Navigation */}
       <nav className='flexCenter justify-between'>
         {/* Left Side */}
-        <div className='text-sm space-x-2'>
-          <button onClick={btnAction} className='connectWalletBtn'>
-            {btnTitle}
-          </button>
+        <div className='flex items-center text-sm space-x-4'>
+          <ConnectWallet colorMode='light' accentColor='#3b82f6' />
           <p className='responsiveLinks link'>Daily Deals</p>
           <p className='responsiveLinks link'>Help & Contact</p>
         </div>
@@ -40,9 +50,12 @@ const Header = (props: Props) => {
           <p className='responsiveLinks link'>Ship to</p>
           <p className='responsiveLinks link'>Sell</p>
           <p className='responsiveLinks link'>Watchlist</p>
-          <Link href='/addItem' className='flexCenter link'>
-            Add to inventory <ChevronDownIcon className='h-4' />{" "}
-          </Link>
+          <button
+            onClick={toggleModal}
+            className='connectWalletBtn px-3 py-1 secondary flexCenter'>
+            <PlusIcon className='h-4 mr-1' />
+            Mint
+          </button>
           <BellIcon className='h-6 link cursor-pointer' />
           <ShoppingCartIcon className='h-6 link cursor-pointer' />
         </div>
@@ -69,7 +82,7 @@ const Header = (props: Props) => {
           <ChevronDownIcon className='h-4 flex-shrink-0' />
         </button>
 
-        <div className='flexCenter border-2 border-black p-2 space-x-2 md:px-5 flex-1'>
+        <div className='flexCenter rounded-lg border-2 border-black p-2 space-x-2 md:px-5 flex-1'>
           <MagnifyingGlassIcon className='w-5 text-gray-400' />
           <input
             className='outline-none flex-1'
@@ -77,8 +90,10 @@ const Header = (props: Props) => {
             type='search'
           />
         </div>
-        <button className='hidden sm:inline-flex ebayBtn'>Search</button>
-        <button className='hidden sm:inline-flex ebayBtn secondary'>
+        <button className='hidden sm:inline-flex connectWalletBtn border-2 border-blue-600'>
+          Search
+        </button>
+        <button className='hidden sm:inline-flex connectWalletBtn secondary'>
           List Item
         </button>
       </section>
@@ -101,6 +116,13 @@ const Header = (props: Props) => {
         <p className='link cursor-pointer hidden xl:inline'>Other</p>
         <p className='link cursor-pointer '>More</p>
       </section>
+
+      {/* Mint NFT Modal */}
+      {openModal && (
+        <ModalBackground>
+          <MintNftModal toggleModal={toggleModal} />
+        </ModalBackground>
+      )}
     </>
   );
 };

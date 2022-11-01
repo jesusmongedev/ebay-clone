@@ -41,8 +41,8 @@ const ListingCard = ({ listing }: Props) => {
 
         <div className='flex justify-end'>
           <button
-            className={`connectWalletBtn text-xs p-2 rounded-lg font-normal ${
-              !isDirect && "bg-red-500"
+            className={`connectWalletBtn text-xs p-2 font-normal ${
+              !isDirect && "bg-red-500 hover:bg-red-600"
             } flexCenter gap-1`}>
             {btnTitle}
             {rightIcon}
