@@ -1,8 +1,8 @@
 import {
   ConnectWallet,
-  useAddress,
-  useDisconnect,
-  useMetamask,
+  // useAddress,
+  // useDisconnect,
+  // useMetamask,
 } from "@thirdweb-dev/react";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -17,22 +17,28 @@ import {
 import Image from "next/image";
 import ModalBackground from "./UI/Modal/ModalBackground";
 import MintNftModal from "./UI/Modal/MintNftModal";
+import ListItemModal from "./UI/Modal/ListItemModal";
 
 type Props = {};
 
 const Header = (props: Props) => {
-  const connectWithMetamask = useMetamask();
-  const disconnect = useDisconnect();
-  const address = useAddress();
+  const [openMintNftModal, setOpenMintNftModal] = useState(false);
+  const [openListItemModal, setOpenListItemModal] = useState(false);
 
-  const [openModal, setOpenModal] = useState(false);
+  // const connectWithMetamask = useMetamask();
+  // const disconnect = useDisconnect();
+  // const address = useAddress();
 
-  const btnTitle = address
-    ? `Hi ${address.slice(0, 5)} ... ${address.slice(-5)}`
-    : "Connect your wallet";
-  const btnAction = address ? disconnect : connectWithMetamask;
+  // const btnTitle = address
+  //   ? `Hi ${address.slice(0, 5)} ... ${address.slice(-5)}`
+  //   : "Connect your wallet";
+  // const btnAction = address ? disconnect : connectWithMetamask;
 
-  const toggleModal = () => setOpenModal((prevState) => !prevState);
+  const toggleMintNftModal = () =>
+    setOpenMintNftModal((prevState) => !prevState);
+
+  const toggleListItemModal = () =>
+    setOpenListItemModal((prevState) => !prevState);
 
   return (
     <>
@@ -51,13 +57,13 @@ const Header = (props: Props) => {
           <p className='responsiveLinks link'>Sell</p>
           <p className='responsiveLinks link'>Watchlist</p>
           <button
-            onClick={toggleModal}
+            onClick={toggleMintNftModal}
             className='connectWalletBtn px-3 py-1 secondary flexCenter'>
             <PlusIcon className='h-4 mr-1' />
             Mint
           </button>
-          <BellIcon className='h-6 link cursor-pointer' />
-          <ShoppingCartIcon className='h-6 link cursor-pointer' />
+          <BellIcon className='responsiveLinks h-6 link cursor-pointer' />
+          <ShoppingCartIcon className='responsiveLinks h-6 link cursor-pointer' />
         </div>
       </nav>
 
@@ -65,7 +71,7 @@ const Header = (props: Props) => {
 
       {/* Search Bar */}
       <section className='flexCenter space-x-2 py-5'>
-        <div className='w-16 h-16 sm:w-28 md:w-44 cursor-pointer flex-shrink-0'>
+        <div className='mx-auto w-16 h-16 sm:w-28 md:w-44 cursor-pointer flex-shrink-0'>
           <Link href='/'>
             <Image
               className='w-full h-full object-contain'
@@ -82,7 +88,7 @@ const Header = (props: Props) => {
           <ChevronDownIcon className='h-4 flex-shrink-0' />
         </button>
 
-        <div className='flexCenter rounded-lg border-2 border-black p-2 space-x-2 md:px-5 flex-1'>
+        <div className='hidden sm:inline-flex  flexCenter rounded-lg border-2 border-black p-2 space-x-2 md:px-5 flex-1'>
           <MagnifyingGlassIcon className='w-5 text-gray-400' />
           <input
             className='outline-none flex-1'
@@ -90,10 +96,12 @@ const Header = (props: Props) => {
             type='search'
           />
         </div>
-        <button className='hidden sm:inline-flex connectWalletBtn border-2 border-blue-600'>
+        <button className='connectWalletBtn border-2 border-blue-600'>
           Search
         </button>
-        <button className='hidden sm:inline-flex connectWalletBtn secondary'>
+        <button
+          onClick={toggleListItemModal}
+          className='connectWalletBtn secondary'>
           List Item
         </button>
       </section>
@@ -118,9 +126,16 @@ const Header = (props: Props) => {
       </section>
 
       {/* Mint NFT Modal */}
-      {openModal && (
+      {openMintNftModal && (
         <ModalBackground>
-          <MintNftModal toggleModal={toggleModal} />
+          <MintNftModal toggleModal={toggleMintNftModal} />
+        </ModalBackground>
+      )}
+
+      {/* List item Modal */}
+      {openListItemModal && (
+        <ModalBackground>
+          <ListItemModal toggleModal={toggleListItemModal} />
         </ModalBackground>
       )}
     </>
