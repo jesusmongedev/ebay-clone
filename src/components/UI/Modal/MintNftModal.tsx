@@ -85,9 +85,7 @@ const MintNftModal = ({ toggleModal }: Props) => {
         />
       </div>
 
-      <form
-        onSubmit={minNft}
-        className='flex flex-col alig flex-1 p-2 space-y-2'>
+      <form onSubmit={minNft} className='flex flex-col flex-1 p-2 space-y-2'>
         <label className='font-semibold text-gray-700' htmlFor='name'>
           Name
         </label>
